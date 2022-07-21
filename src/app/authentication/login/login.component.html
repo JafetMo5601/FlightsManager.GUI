@@ -1,0 +1,26 @@
+<div class="login-form-wrapper">
+    <h1>Bienvenido de vuelta, <br> inicia sesión en tu cuenta!</h1>
+    <h3>Utiliza tus redes sociales</h3>
+    <div class="social-container">
+        <a id="facebook-icon" class="btn btn-primary btn-lg btn-floating fa fa-facebook" href="#!" role="button">
+        </a>
+        <a id="twitter-icon" class="btn btn-primary btn-lg btn-floating fa fa-twitter" href="#!" role="button">
+        </a>
+        <a id="google-icon" class="btn btn-primary btn-lg btn-floating fa fa-google" href="#!" role="button">
+        </a>
+    </div>
+    <span>o utiliza tu información para el ingreso</span>
+
+    <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <mat-form-field class="full-width" appearance="legacy">
+            <mat-label>Username</mat-label>
+            <input type="text" matInput formControlName="username">
+        </mat-form-field>
+
+        <mat-form-field class="full-width" appearance="legacy">
+            <mat-label>Password</mat-label>
+            <input matInput type="password" formControlName="password">
+        </mat-form-field>
+        <button>Iniciar Sesión</button>
+    </form>
+</div>
