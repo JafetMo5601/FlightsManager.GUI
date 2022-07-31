@@ -6,22 +6,10 @@
         </div>
         <div class="menu-button-wrapper">
             <mat-button-toggle-group>
-                <a routerLink="calendar">
+                <a *ngFor="let option of options" routerLink="{{option.link}}">
                     <mat-button-toggle mat-button class="menu-button">
-                        <mat-icon>calendar_today</mat-icon>
-                        <span>Reservar vuelo</span>
-                    </mat-button-toggle>
-                </a>
-                <a routerLink="appointments">
-                    <mat-button-toggle mat-button class="menu-button">
-                        <mat-icon>pending_actions</mat-icon>
-                        <span>Ver proximos vuelos</span>
-                    </mat-button-toggle>
-                </a>
-                <a routerLink="coming-soon">
-                    <mat-button-toggle mat-button class="menu-button">
-                        <mat-icon>local_airport</mat-icon>
-                        <span>Vuelos reservados</span>
+                        <mat-icon>{{option.icon}}</mat-icon>
+                        <span>{{option.description}}</span>
                     </mat-button-toggle>
                 </a>
             </mat-button-toggle-group>

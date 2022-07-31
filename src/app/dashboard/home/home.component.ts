@@ -13,10 +13,9 @@ export class HomeComponent {
   name: string = this.tokenStg.getUserName();
 
   options: any[] = [
-    { icon: 'calendar_today', description: 'Calendar', link: '' },
-    { icon: 'pending_actions', description: 'Appointments', link: '' },
-    { icon: 'event', description: 'Events', link: '' },
-    { icon: 'local_airport', description: 'Vacations', link: '' }
+    { icon: 'calendar_today', description: 'Reservar Vuelo', link: '/home/create-reservation' },
+    { icon: 'pending_actions', description: 'Ver proximos vuelos', link: '/home/next-flights' },
+    { icon: 'local_airport', description: 'Vuelos Reservados', link: '/home/reservations' }
   ];
 
   constructor(
