@@ -56,13 +56,17 @@
         </div>
 
         <div class="row">
-            <div class="col-8">
-                <mat-form-field class="full-width" appearance="legacy">
-                    <mat-label>Correo Electrónico</mat-label>
-                    <input type="email" matInput formControlName="email">
-                </mat-form-field>
+            <div class="col-6">
+                <mat-form-field appearance="legacy" class="full-width">
+                    <mat-label>Nacionalidad</mat-label>
+                    <mat-select [(value)]="selectedCountry" name="food">
+                      <mat-option (click)="chooseCountry()" *ngFor="let country of countries" [value]="country.id" formControlName="country">
+                        {{country.nombre}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
             </div>
-            <div class="col-4">
+            <div class="col-6">
                 <mat-form-field class="full-width" appearance="legacy" style="margin-bottom: 2rem;">
                     <mat-label>Fecha de nacimiento</mat-label>
                     <input matInput [matDatepicker]="picker" formControlName="birthDate">
@@ -73,10 +77,21 @@
             </div>
         </div>
 
-        <mat-form-field class="full-width" appearance="legacy">
-            <mat-label>Contraseña</mat-label>
-            <input matInput type="password" formControlName="password">
-        </mat-form-field>
+        <div class="row">
+            <div class="col-7">
+                <mat-form-field class="full-width" appearance="legacy">
+                    <mat-label>Correo Electrónico</mat-label>
+                    <input type="email" matInput formControlName="email">
+                </mat-form-field>
+            </div>
+            <div class="col-5">
+                <mat-form-field class="full-width" appearance="legacy">
+                    <mat-label>Contraseña</mat-label>
+                    <input matInput type="password" formControlName="password">
+                </mat-form-field>
+            </div>
+        </div>
+        
         <button>Registrar</button>
     </form>
 </div>
