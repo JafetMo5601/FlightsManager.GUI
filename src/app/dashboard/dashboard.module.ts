@@ -6,13 +6,21 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AuthGuard } from '../shared/http-services/authorization/auth.guard';
+import { FlightReservationsComponent } from './flight-reservations/flight-reservations.component';
+import { NextFlightsComponent } from './next-flights/next-flights.component';
+import { ReservationsComponent } from './reservations/reservations.component';
+import { ReservationDetailsComponent } from './reservation-details/reservation-details.component';
 
 
 
 @NgModule({
   declarations: [
   
-    HomeComponent
+    HomeComponent,
+       FlightReservationsComponent,
+       NextFlightsComponent,
+       ReservationsComponent,
+       ReservationDetailsComponent
   ],
   imports: [
     ReactiveFormsModule,
@@ -24,8 +32,26 @@ import { AuthGuard } from '../shared/http-services/authorization/auth.guard';
       { 
         path: '', 
         component: HomeComponent,
-        canActivate: [AuthGuard]
-      },
+        canActivate: [AuthGuard],
+        children: [
+          {
+            path: 'create-reservation',
+            component: FlightReservationsComponent,
+          },
+          {
+            path: 'next-flights',
+            component: NextFlightsComponent,
+          },
+          {
+            path: 'reservations',
+            component: ReservationsComponent,
+          },
+          {
+            path: 'reservation/:id',
+            component: ReservationDetailsComponent,
+          },
+        ]
+      }
     ])
   ]
 })
