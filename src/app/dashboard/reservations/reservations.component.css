@@ -1,0 +1,20 @@
+p {
+    font-size: medium;
+}
+
+.mat-icon {
+    color: #D3D3D3;
+}
+
+.title {
+    margin-bottom: 2rem;
+}
+
+#cards-container {
+    max-height: 500px;
+    overflow-y: scroll;
+}
+
+::-webkit-scrollbar { 
+    display: none;  /* Safari and Chrome */
+}
