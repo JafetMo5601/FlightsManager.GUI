@@ -1,0 +1,98 @@
+<div class="container w-100 h-100 d-flex align-items-center justify-content-center" style="max-height: 100%">
+    <div class="w-100">
+        <div class="d-flex justify-content-center title">
+            <h2 class="text-dark">Crear una reservacion</h2>
+        </div>
+        <div class="row align-items-center justify-content-center">
+            <div class="col-md-10">
+                <div class="h-100 p-5 text-bg-dark rounded-3">
+                    <div class="input-group m-0 row align-items-center">
+                        <div class="col-5">
+                            <div class="row align-items-center">
+                                <form class="form-control m-0 bg-white">
+                                    <mat-form-field class="w-100" appearance="outline">
+                                        <mat-label>Escoja el destino de partida</mat-label>
+                                        <mat-icon class="me-3" matPrefix>flight_takeoff</mat-icon>
+                                        <input type="text" placeholder="Seleccione el pais de salida"
+                                            aria-label="Number" matInput [formControl]="paisPartida"
+                                            [matAutocomplete]="auto1">
+                                        <mat-autocomplete #auto1="matAutocomplete">
+                                            <mat-option *ngFor="let option of filteredOptions | async"
+                                                [value]="option.nombre" (click)="loadCountriesToArrive()">
+                                                {{option.nombre}}
+                                            </mat-option>
+                                        </mat-autocomplete>
+                                    </mat-form-field>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="row w-100 m-0">
+                                <mat-icon class="d-flex align-items-center justify-content-center w-100"
+                                    id="comparaison-icon">compare_arrows</mat-icon>
+                            </div>
+                        </div>
+                        <div class="col-5">
+                            <div class="row align-items-center">
+                                <form class="form-control m-0 bg-white">
+                                    <mat-form-field class="w-100" appearance="outline">
+                                        <mat-label>Escoja el destino de llegada</mat-label>
+                                        <mat-icon class="me-3" matPrefix>flight_land</mat-icon>
+                                        <input type="text" placeholder="Seleccione el pais de llegada"
+                                            aria-label="Number" matInput [formControl]="paisLlegada"
+                                            [matAutocomplete]="auto2">
+                                        <mat-autocomplete #auto2="matAutocomplete">
+                                            <mat-option *ngFor="let option of filteredAgainOptions | async"
+                                                [value]="option.nombre">
+                                                {{option.nombre}}
+                                            </mat-option>
+                                        </mat-autocomplete>
+                                    </mat-form-field>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="input-group p-0 m-0 mt-3 row justify-content-between align-items-center">
+                        <div class="col-5">
+                            <div class="row align-items-center">
+                                <form class="form-control m-0 bg-white">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-icon class="me-3" matPrefix>calendar_today</mat-icon>
+                                        <mat-label>Escoja el horario del viaje</mat-label>
+                                        <mat-select [(ngModel)]="selectedClass" name="tarifa">
+                                            <mat-option *ngFor="let horario of horarios" [value]="horario.id">
+                                                {{horario.horaPartida | date:'M/d/yy, h:mm a'}} - {{horario.horaLlegada | date:'M/d/yy, h:mm a'}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="row w-100 m-0">
+                                <mat-icon class="d-flex align-items-center justify-content-center w-100"
+                                    id="comparaisonn-icon">fiber_manual_record</mat-icon>
+                            </div>
+                        </div>
+                        <div class="col-5">
+                            <div class="row align-items-center">
+                                <form class="form-control m-0 bg-white">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-icon class="me-3" matPrefix>person</mat-icon>
+                                        <mat-label>Escoja la clase</mat-label>
+                                        <mat-select [(ngModel)]="selectedClass" name="tarifa">
+                                            <mat-option *ngFor="let tarifa of tarifas" [value]="tarifa.id">
+                                                {{tarifa.clase}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
