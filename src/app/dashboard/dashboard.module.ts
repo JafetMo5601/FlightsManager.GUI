@@ -10,6 +10,7 @@ import { FlightReservationsComponent } from './flight-reservations/flight-reserv
 import { NextFlightsComponent } from './next-flights/next-flights.component';
 import { ReservationsComponent } from './reservations/reservations.component';
 import { ReservationDetailsComponent } from './reservation-details/reservation-details.component';
+import { BookFlightComponent } from './reservations/book-flight/book-flight.component';
 
 
 
@@ -20,7 +21,8 @@ import { ReservationDetailsComponent } from './reservation-details/reservation-d
        FlightReservationsComponent,
        NextFlightsComponent,
        ReservationsComponent,
-       ReservationDetailsComponent
+       ReservationDetailsComponent,
+       BookFlightComponent,
   ],
   imports: [
     ReactiveFormsModule,
