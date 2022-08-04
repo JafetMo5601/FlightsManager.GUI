@@ -5,3 +5,8 @@ mat-form-field {
 #comparaison-icon {
     transform: scale(1.5);
 }
+
+.mat-table{    
+    border-radius: 5px;
+    overflow:hidden !important;
+}
