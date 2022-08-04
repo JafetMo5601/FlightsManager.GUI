@@ -16,8 +16,8 @@
 										<p class="text-dark">{{reservation.departure_date | date:"fullDate"}} - {{reservation.arrival_date | date:"fullDate"}}</p>
 									</div>
 								</div>
-								<div class="col-md-2 d-flex align-items-center justify-content-center">
-									<mat-icon  routerLink="/home/reservation/{{reservation.id}}">keyboard_arrow_right</mat-icon>
+								<div id="link" class="col-md-2 d-flex align-items-center justify-content-center">
+									<mat-icon routerLink="/home/reservation/{{reservation.id}}">keyboard_arrow_right</mat-icon>
 								</div>
 							</div>
 						</div>
@@ -33,7 +33,7 @@
 							</div>
 						</div>
 						<div class="d-flex justify-content-center">
-							<button class="btn btn-outline-light" type="button">Crea una nueva reservacion</button>
+							<button class="btn btn-outline-light" routerLink="/home/create-reservation" type="button">Crea una nueva reservacion</button>
 						</div>
 					</div>
 				</div>
@@ -50,8 +50,8 @@
 										<p class="text-dark">{{reservation.departure_date | date:"fullDate"}} - {{reservation.arrival_date | date:"fullDate"}}</p>
 									</div>
 								</div>
-								<div class="col-md-2 d-flex align-items-center justify-content-center">
-									<mat-icon  routerLink="/home/reservation/{{reservation.id}}">keyboard_arrow_right</mat-icon>
+								<div id="link" class="col-md-2 d-flex align-items-center justify-content-center" routerLink="/home/reservation/1">
+									<mat-icon routerLink="/home/reservation/{{reservation.id}}">keyboard_arrow_right</mat-icon>
 								</div>
 							</div>
 						</div>
@@ -67,27 +67,11 @@
 							</div>
 						</div>
 						<div class="d-flex justify-content-center">
-							<button class="btn btn-outline-secondary" type="button">Crea una nueva reservacion</button>
+							<button class="btn btn-outline-secondary" routerLink="/home/create-reservation" type="button">Crea una nueva reservacion</button>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<!-- <div class="row mb-2">
-			<div class="col-md-6">
-				<div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-					<div class="col p-4 d-flex flex-column position-static">
-						<strong class="d-inline-block mb-2 text-success">Design</strong>
-					</div>            
-				</div>
-			</div>
-			<div class="col-md-6">
-				<div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-					<div class="col p-4 d-flex flex-column position-static">
-						<strong class="d-inline-block mb-2 text-success">Design</strong>
-					</div>            
-			  	</div>
-			</div>
-		</div>	 -->
 	</div>
 </div>
