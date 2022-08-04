@@ -9,7 +9,7 @@ export interface Vuelo {
     id: number,
     avion: Avion,
     tarifa: Tarifa,
-    reserva: Reserva,
-    aeropuerto: Aeropuerto,
+    aeropuertoDestino: Aeropuerto
+    aeropuertoPartida: Aeropuerto,
     horario: Horario
 }
