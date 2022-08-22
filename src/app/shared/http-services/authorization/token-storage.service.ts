@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 
 
 const TOKEN_KEY = 'auth-token';
-const USER_KEY = 'auth-user';
-const FULL_NAME = 'fullname';
+const USER_KEY = 'auth-user-id';
+const ROLE = 'auth-user-role';
 
 
 @Injectable({
@@ -14,6 +14,7 @@ export class TokenStorageService {
   constructor() { }
 
   signOut(): void {
+    localStorage.clear();
     window.sessionStorage.clear();
   }
 
@@ -31,35 +32,49 @@ export class TokenStorageService {
     localStorage.removeItem(TOKEN_KEY);
   }
 
-  public saveUser(user: any): void {
-    this.removeUser();
-    localStorage.setItem(USER_KEY, JSON.stringify(user));
-    this.saveUserName();
+  // public saveUser(user: any): void {
+  //   this.removeUser();
+  //   localStorage.setItem(USER_KEY, JSON.stringify(user));
+  //   this.saveUserId();
+  // }
+
+  // public getUser(): any {
+  //   const user = localStorage.getItem(USER_KEY);
+  //   if (user) {
+  //     return JSON.parse(user);
+  //   }
+  //   return {};
+  // }
+
+  // public removeUser(): void {
+  //   localStorage.removeItem(USER_KEY);
+  // }
+
+  saveUserId(userId: string): void {
+    this.removeUserId();
+    localStorage.setItem(USER_KEY, userId);
   }
 
-  public getUser(): any {
-    const user = localStorage.getItem(USER_KEY);
-    if (user) {
-      return JSON.parse(user);
-    }
-    return {};
+  public getUserId(): string {
+    let userId = localStorage.getItem(USER_KEY);
+    return (userId !== 'undefined' && userId !== null) ? userId : "" as string;
   }
 
-  public removeUser(): void {
+  private removeUserId(): void {
     localStorage.removeItem(USER_KEY);
   }
 
-  private saveUserName(): void {
-    this.removeUserName();
-    localStorage.setItem(FULL_NAME, JSON.parse(String(localStorage.getItem('auth-user')))['name'] + ' ' + JSON.parse(String(localStorage.getItem('auth-user')))['last']);
+  saveUserRole(role: string): void {
+    this.removeUserRole();
+    localStorage.setItem(ROLE, role);
   }
 
-  public getUserName(): string {
-    let name = localStorage.getItem(FULL_NAME);
-    return (name !== 'undefined' && name !== null) ? name : "" as string;
+  public getUserRole(): string {
+    let role = localStorage.getItem(ROLE);
+    return (role !== 'undefined' && role !== null) ? role : "" as string;
   }
 
-  private removeUserName(): void {
-    localStorage.removeItem(FULL_NAME);
+  private removeUserRole(): void {
+    localStorage.removeItem(ROLE);
   }
 }

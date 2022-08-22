@@ -5,9 +5,8 @@
                 <h2 class="text-dark">Detalles de la reservacion</h2>
                 <div class="card mb-3">
                     <div class="card-body">
-                        <h3 class="text-black-50">{{departureCountry}} - {{arrivalCountry}}</h3>
-                        <p class="text-dark">{{departureDate | date:"fullDate"}} - {{arrivalDate |
-                            date:"fullDate"}}</p>
+                        <h3 class="text-black-50">{{reservation_object?.vuelo?.aeropuertoPartida?.pais?.nombre}} - {{reservation_object?.vuelo?.aeropuertoDestino?.pais?.nombre}}</h3>
+                        <p class="text-dark">{{reservation_object?.vuelo?.horario?.horaPartida | date:"fullDate"}} - {{reservation_object?.vuelo?.horario?.horaLlegada | date:"fullDate"}}</p>
                     </div>
                 </div>
                 <div class="row mt-3">
@@ -16,8 +15,8 @@
                             <h3 class="w-100 text-center">Detalles del pasajero</h3>
                             <div class="row g-0 mt-5">
                                 <div class="card-body">
-                                    <p class="fw-light text-light">E-mail: jafet.moraugalde15@gmail.com</p>
-                                    <p class="fw-light text-light">Numero de telefono: 71445897</p>
+                                    <p class="fw-light text-light">E-mail: {{ reservation_object?.pasajero?.email }}</p>
+                                    <p class="fw-light text-light">Numero de telefono: {{ reservation_object?.pasajero?.phoneNumber }}</p>
                                 </div>
                             </div>
                         </div>
@@ -27,22 +26,37 @@
                             <h3 class="w-100 text-center">Rerefencia de la aerolinea</h3>
                             <div class="row g-0 mt-5">
                                 <div class="card-body">
-                                    <p class="fw-light text-light">San Jose - Lima (Copa Airlines)</p>
-                                    <p class="fw-light text-light">Lima -San Jose (Copa Airlines)</p>
+                                    <p class="fw-light text-light">{{reservation_object?.vuelo?.aeropuertoPartida?.pais?.nombre}} - {{reservation_object?.vuelo?.aeropuertoDestino?.pais?.nombre}} ({{ reservation_object?.vuelo?.avion?.aerolinea?.nombre }})</p>
+                                    <p class="fw-light text-light">{{reservation_object?.vuelo?.aeropuertoDestino?.pais?.nombre}} - {{reservation_object?.vuelo?.aeropuertoPartida?.pais?.nombre}} ({{ reservation_object?.vuelo?.avion?.aerolinea?.nombre }})</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="card mt-3">
-                    <div class="card-body">
-                        <h3 class="text-black-50">Precio total facturado: </h3>
-                        <p class="text-dark">$800</p>
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="text-black-50">Detalles del boleto: </h3>
+                                <br>
+                                <p class="text-dark">Clase de la reservacion: {{ reservation_object?.vuelo?.tarifa?.clase }}</p>
+                                <p class="text-dark">Numeracion del asiento: {{ reservation_object?.vuelo?.tarifa?.asiento?.letra }}{{ reservation_object?.vuelo?.tarifa?.asiento?.fila }}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h3 class="text-black-50">Precio total facturado: </h3>
+                                <br><br>    
+                                <p class="text-dark">{{ reservation_object?.vuelo?.tarifa?.precio | currency }}</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 </div>

@@ -12,8 +12,8 @@
 							<div class="row g-0">
 								<div class="col-md-10">
 									<div class="card-body">
-										<h3 class="text-black-50">{{reservation.departure_country}} - {{reservation.arrival_country}}</h3>
-										<p class="text-dark">{{reservation.departure_date | date:"fullDate"}} - {{reservation.arrival_date | date:"fullDate"}}</p>
+										<h3 class="text-black-50">{{reservation.vuelo.aeropuertoPartida.pais.nombre}} - {{reservation.vuelo.aeropuertoDestino.pais.nombre}}</h3>
+										<p class="text-dark">{{reservation.vuelo.horario.horaPartida | date:"fullDate"}} - {{reservation.vuelo.horario.horaLlegada | date:"fullDate"}}</p>
 									</div>
 								</div>
 								<div id="link" class="col-md-2 d-flex align-items-center justify-content-center">
@@ -46,11 +46,11 @@
 							<div class="row g-0">
 								<div class="col-md-10">
 									<div class="card-body">
-										<h3 class="text-black-50">{{reservation.departure_country}} - {{reservation.arrival_country}}</h3>
-										<p class="text-dark">{{reservation.departure_date | date:"fullDate"}} - {{reservation.arrival_date | date:"fullDate"}}</p>
+										<h3 class="text-black-50">{{reservation.vuelo.aeropuertoPartida.pais.nombre}} - {{reservation.vuelo.aeropuertoDestino.pais.nombre}}</h3>
+										<p class="text-dark">{{reservation.vuelo.horario.horaPartida | date:"fullDate"}} - {{reservation.vuelo.horario.horaLlegada | date:"fullDate"}}</p>
 									</div>
 								</div>
-								<div id="link" class="col-md-2 d-flex align-items-center justify-content-center" routerLink="/home/reservation/1">
+								<div id="link" class="col-md-2 d-flex align-items-center justify-content-center" routerLink="/home/reservation/{{reservation.id}}">
 									<mat-icon routerLink="/home/reservation/{{reservation.id}}">keyboard_arrow_right</mat-icon>
 								</div>
 							</div>

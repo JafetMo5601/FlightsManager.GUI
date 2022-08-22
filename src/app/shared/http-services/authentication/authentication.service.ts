@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { TokenStorageService } from '../authorization/token-storage.service';
+import { User } from '../../interfaces/user';
 
 const httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -48,8 +49,14 @@ export class AuthenticationService {
     }
 
     logout(): void {
-        this.tokenStrg.removeToken();
-        this.tokenStrg.removeUser();
-        this.router.navigateByUrl("/auth");
+        this.tokenStrg.signOut();
+        window.location.reload();
+    }
+
+    getUserInfo(userId: string): Observable<User> {
+        return this.http.get<User>(
+            environment.apiUrl + `Auth/user-info?userId=${userId}`,
+            httpOptions
+        )
     }
 }

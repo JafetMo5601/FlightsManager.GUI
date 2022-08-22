@@ -1,5 +1,6 @@
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 
 export interface DialogData {
@@ -16,14 +17,20 @@ export class CustomPopUpComponent implements OnInit {
   @Input() title: string | undefined;
   @Input() message: string | undefined;
   @Input() btnOkText: string | undefined;
+  @Input() link: string | undefined;
 
-  constructor(private activeModal: NgbActiveModal) { }
+  constructor(
+    private activeModal: NgbActiveModal,
+    private router: Router) { }
 
   ngOnInit(): void {
   }
 
   public accept() {
     this.activeModal.close(true);
+    if (this.link !== undefined || this.link !== null) {
+      this.router.navigate([this.link]);
+    }
   }
 
   public dismiss() {

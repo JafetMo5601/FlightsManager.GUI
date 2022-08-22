@@ -11,6 +11,8 @@ import { NextFlightsComponent } from './next-flights/next-flights.component';
 import { ReservationsComponent } from './reservations/reservations.component';
 import { ReservationDetailsComponent } from './reservation-details/reservation-details.component';
 import { BookFlightComponent } from './reservations/book-flight/book-flight.component';
+import { AdministratorComponent } from './administrator/administrator.component';
+import { AdminGuard } from '../shared/http-services/authorization/admin.guard';
 
 
 
@@ -23,6 +25,7 @@ import { BookFlightComponent } from './reservations/book-flight/book-flight.comp
        ReservationsComponent,
        ReservationDetailsComponent,
        BookFlightComponent,
+       AdministratorComponent,
   ],
   imports: [
     ReactiveFormsModule,
@@ -52,6 +55,17 @@ import { BookFlightComponent } from './reservations/book-flight/book-flight.comp
             path: 'reservation/:id',
             component: ReservationDetailsComponent,
           },
+          {
+            path: 'booking/:id',
+            component: BookFlightComponent,
+          },
+          {
+            path: 'admin',
+            component: AdministratorComponent,
+            // canActivate: [AdminGuard]
+          },
+          { path: '**', component: NextFlightsComponent},
+          { path: '', redirectTo: 'home', pathMatch: 'full'}
         ]
       }
     ])

@@ -7,6 +7,8 @@ import { RouterModule } from '@angular/router';
 import { AuthenticationComponent } from './authentication.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { RecaptchaFormsModule, RecaptchaModule, RecaptchaSettings, RECAPTCHA_SETTINGS } from 'ng-recaptcha';
+import { environment } from 'src/environments/environment';
 
 
 
@@ -14,12 +16,14 @@ import { RegisterComponent } from './register/register.component';
   declarations: [
     LoginComponent,
     RegisterComponent,
-    AuthenticationComponent,
+    AuthenticationComponent    
   ],
   imports: [
+    RecaptchaFormsModule,
     ReactiveFormsModule,
     HttpClientModule,
     MaterialsModule,
+    RecaptchaModule,
     CommonModule,
     FormsModule,
     RouterModule.forChild([
@@ -32,6 +36,14 @@ import { RegisterComponent } from './register/register.component';
         ]
       },
     ])
+  ],
+  providers: [
+    {
+      provide: RECAPTCHA_SETTINGS,
+      useValue: {
+        siteKey: environment.siteKey
+      } as RecaptchaSettings
+    }
   ]
 })
 export class AuthenticationModule { }

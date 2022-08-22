@@ -1,26 +1,41 @@
 <div class="login-form-wrapper">
-    <h1>Bienvenido de vuelta, <br> inicia sesión en tu cuenta!</h1>
-    <h3>Utiliza tus redes sociales</h3>
-    <div class="social-container">
-        <a id="facebook-icon" class="btn btn-primary btn-lg btn-floating fa fa-facebook" href="#!" role="button">
-        </a>
-        <a id="twitter-icon" class="btn btn-primary btn-lg btn-floating fa fa-twitter" href="#!" role="button">
-        </a>
-        <a id="google-icon" class="btn btn-primary btn-lg btn-floating fa fa-google" href="#!" role="button">
-        </a>
-    </div>
-    <span>o utiliza tu información para el ingreso</span>
+  <h1>Bienvenido de vuelta, <br> inicia sesión en tu cuenta!</h1>
+  <h3>Utiliza tus redes sociales</h3>
+  <div class="social-container">
+    <a id="facebook-icon" class="btn btn-primary btn-lg btn-floating fa fa-facebook" href="#!" role="button">
+    </a>
+    <a id="twitter-icon" class="btn btn-primary btn-lg btn-floating fa fa-twitter" href="#!" role="button">
+    </a>
+    <a id="google-icon" class="btn btn-primary btn-lg btn-floating fa fa-google" href="#!" role="button">
+    </a>
+  </div>
+  <span>o utiliza tu información para el ingreso</span>
 
-    <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-        <mat-form-field class="full-width" appearance="legacy">
-            <mat-label>Username</mat-label>
-            <input type="text" matInput formControlName="username">
-        </mat-form-field>
+  <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <mat-form-field class="full-width" appearance="legacy">
+      <mat-label>Username</mat-label>
+      <input type="text" matInput formControlName="username">
+    </mat-form-field>
 
-        <mat-form-field class="full-width" appearance="legacy">
-            <mat-label>Password</mat-label>
-            <input matInput type="password" formControlName="password">
-        </mat-form-field>
-        <button>Iniciar Sesión</button>
+    <mat-form-field class="full-width" appearance="legacy">
+      <mat-label>Password</mat-label>
+      <input matInput type="password" formControlName="password">
+    </mat-form-field>
+
+    <form #form="ngForm" class="mb-4">
+      <div class="row mt-3">
+        <div class="col-sm-12 mb-2">
+          <re-captcha id="recaptcha" name="recaptcha" #recaptcha="ngModel" [(ngModel)]="token" required
+            [class.is-invalid]="recaptcha.invalid && (recaptcha.dirty || recaptcha.touched)" class="d-flex align-items-center justify-content-center"></re-captcha>
+          <div *ngIf="recaptcha.invalid && (recaptcha.dirty || recaptcha.touched)" class="invalid-feedback">
+            <div *ngIf="recaptcha.errors?.['required']">The RECAPTCHA is required.</div>
+          </div>
+        </div>
+      </div>
     </form>
+
+    <button (click)="send(form)">Iniciar Sesión</button>
+  </form>
+
+
 </div>

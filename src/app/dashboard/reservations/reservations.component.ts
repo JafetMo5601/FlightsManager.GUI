@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { TokenStorageService } from 'src/app/shared/http-services/authorization/token-storage.service';
+import { ReservationsService } from 'src/app/shared/http-services/utils/reservations.service';
 import { Reservations } from 'src/app/shared/interfaces/reservations';
 
 @Component({
@@ -7,123 +9,31 @@ import { Reservations } from 'src/app/shared/interfaces/reservations';
   styleUrls: ['./reservations.component.css']
 })
 export class ReservationsComponent implements OnInit {
-  current_reservations: Reservations[] = [
-    // {
-    //   id: 1,
-    //   departure_country: 'San Jose, Costa Rica',
-    //   arrival_country: 'Paris, France',
-    //   departure_date: new Date('Dec 24, 2021 00:00:00'),
-    //   arrival_date: new Date('Dec 24, 2021 00:00:00'),
-    // },
-    // {
-    //   id: 1,
-    //   departure_country: 'San Jose, Costa Rica',
-    //   arrival_country: 'Paris, France',
-    //   departure_date: new Date('Dec 24, 2021 00:00:00'),
-    //   arrival_date: new Date('Dec 24, 2021 00:00:00'),
-    // },
-    // {
-    //   id: 1,
-    //   departure_country: 'San Jose, Costa Rica',
-    //   arrival_country: 'Paris, France',
-    //   departure_date: new Date('Dec 24, 2021 00:00:00'),
-    //   arrival_date: new Date('Dec 24, 2021 00:00:00'),
-    // },
-    // {
-    //   id: 1,
-    //   departure_country: 'San Jose, Costa Rica',
-    //   arrival_country: 'Paris, France',
-    //   departure_date: new Date('Dec 24, 2021 00:00:00'),
-    //   arrival_date: new Date('Dec 24, 2021 00:00:00'),
-    // },
-    // {
-    //   id: 1,
-    //   departure_country: 'San Jose, Costa Rica',
-    //   arrival_country: 'Paris, France',
-    //   departure_date: new Date('Dec 24, 2021 00:00:00'),
-    //   arrival_date: new Date('Dec 24, 2021 00:00:00'),
-    // },
-    // {
-    //   id: 1,
-    //   departure_country: 'San Jose, Costa Rica',
-    //   arrival_country: 'Paris, France',
-    //   departure_date: new Date('Dec 24, 2021 00:00:00'),
-    //   arrival_date: new Date('Dec 24, 2021 00:00:00'),
-    // },
-    // {
-    //   id: 1,
-    //   departure_country: 'San Jose, Costa Rica',
-    //   arrival_country: 'Paris, France',
-    //   departure_date: new Date('Dec 24, 2021 00:00:00'),
-    //   arrival_date: new Date('Dec 24, 2021 00:00:00'),
-    // },
-    // {
-    //   id: 1,
-    //   departure_country: 'San Jose, Costa Rica',
-    //   arrival_country: 'Paris, France',
-    //   departure_date: new Date('Dec 24, 2021 00:00:00'),
-    //   arrival_date: new Date('Dec 24, 2021 00:00:00'),
-    // },
-  ]
+  current_reservations: Reservations[] = []
+  past_reservations: Reservations[] = []
+  user_id: string = '';
 
-  
-
-  past_reservations: Reservations[] = [
-    {
-      id: 1,
-      departure_country: 'San Jose, Costa Rica',
-      arrival_country: 'Paris, France',
-      departure_date: new Date('Dec 24, 2021 00:00:00'),
-      arrival_date: new Date('Dec 24, 2021 00:00:00'),
-    },
-    {
-      id: 1,
-      departure_country: 'San Jose, Costa Rica',
-      arrival_country: 'Paris, France',
-      departure_date: new Date('Dec 24, 2021 00:00:00'),
-      arrival_date: new Date('Dec 24, 2021 00:00:00'),
-    },
-    {
-      id: 1,
-      departure_country: 'San Jose, Costa Rica',
-      arrival_country: 'Paris, France',
-      departure_date: new Date('Dec 24, 2021 00:00:00'),
-      arrival_date: new Date('Dec 24, 2021 00:00:00'),
-    },
-    {
-      id: 1,
-      departure_country: 'San Jose, Costa Rica',
-      arrival_country: 'Paris, France',
-      departure_date: new Date('Dec 24, 2021 00:00:00'),
-      arrival_date: new Date('Dec 24, 2021 00:00:00'),
-    },
-    // {
-      // id: 1,
-    //   departure_country: 'San Jose, Costa Rica',
-    //   arrival_country: 'Paris, France',
-    //   departure_date: new Date('Dec 24, 2021 00:00:00'),
-    //   arrival_date: new Date('Dec 24, 2021 00:00:00'),
-    // },
-    // {
-      // id: 1,
-    //   departure_country: 'San Jose, Costa Rica',
-    //   arrival_country: 'Paris, France',
-    //   departure_date: new Date('Dec 24, 2021 00:00:00'),
-    //   arrival_date: new Date('Dec 24, 2021 00:00:00'),
-    // },
-    // {
-      // id: 1,
-    //   departure_country: 'San Jose, Costa Rica',
-    //   arrival_country: 'Paris, France',
-    //   departure_date: new Date('Dec 24, 2021 00:00:00'),
-    //   arrival_date: new Date('Dec 24, 2021 00:00:00'),
-    // },
-  ]
-
-  constructor() { }
+  constructor(
+    private reservasService: ReservationsService,
+    private storage: TokenStorageService
+  ) {
+    this.user_id = this.storage.getUserId();
+  }
 
   ngOnInit(): void {
-    this.current_reservations.length
+    this.reservasService.getNextReservationsByUser(this.user_id).subscribe(
+      data => {
+        this.current_reservations = data;
+      },
+      err => {}
+    );
+
+    this.reservasService.getPastReservationsByUser(this.user_id).subscribe(
+      data => {
+        this.past_reservations = data;
+      },
+      err => {}
+    );
   }
 
 }

@@ -11,7 +11,7 @@ import { Vuelo } from 'src/app/shared/interfaces/vuelo';
   styleUrls: ['./next-flights.component.css']
 })
 export class NextFlightsComponent implements OnInit {
-  displayedColumns: string[] = ['airport_departure', 'airport_arrival', 'avion', 'class', 'price'];
+  displayedColumns: string[] = ['airport_departure', 'airport_arrival', 'avion', 'class', 'price', 'actions'];
   flights: Array<Vuelo> = []
   dataSource = new MatTableDataSource(this.flights);
 
@@ -26,7 +26,9 @@ export class NextFlightsComponent implements OnInit {
         console.log(data);
         this.dataSource = new MatTableDataSource(data);
       },
-      err => {}
+      err => {
+        this.openCustomPopUp('Hubo un error contactando los servidores, contacte a los administradores.', '/home')
+      }
     )
   }
   
@@ -36,10 +38,11 @@ export class NextFlightsComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  public openCustomPopUp(message: string) {
+  public openCustomPopUp(message: string, link: string | undefined = undefined) {
     this.customPopUpService.confirm(
       'Reservaciones', 
-      message
+      message,
+      link
       );
   }
 }

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { ReservationsService } from 'src/app/shared/http-services/utils/reservations.service';
+import { Reservations } from 'src/app/shared/interfaces/reservations';
 
 @Component({
   selector: 'app-reservation-details',
@@ -6,15 +9,22 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./reservation-details.component.css']
 })
 export class ReservationDetailsComponent implements OnInit {
-  arrivalCountry: string = 'Lima, Peru'
-  departureCountry: string = 'San Jose, Costa Rica'
-  orderNumber: string = 'LL09123A'
-  arrivalDate: string = '2022-08-25 07:00:00.0000000'
-  departureDate: string = '2022-08-25 08:00:00.0000000'
+  reservataion_number: string = '';
+  reservation_object: Reservations | undefined;
 
-  constructor() { }
+  constructor(
+    private route: ActivatedRoute,
+    private reservationService: ReservationsService
+  ) { }
 
   ngOnInit(): void {
+    this.reservataion_number = this.route.snapshot.paramMap.get('id')!;
+    this.reservationService.getReservationsById(this.reservataion_number).subscribe(
+      data => {
+        this.reservation_object = data;
+      },
+      err => {}
+    );
   }
 
 }

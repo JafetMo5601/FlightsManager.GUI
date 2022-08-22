@@ -24,7 +24,7 @@ export class FlightReservationsComponent implements OnInit {
   paisesFiltered: Countries[] = [];
   filteredOptions: Observable<Countries[]> | undefined = undefined;
   filteredAgainOptions: Observable<Countries[]> | undefined = undefined;
-  displayedColumns: string[] = ['airport_departure', 'airport_arrival', 'avion', 'class', 'price'];
+  displayedColumns: string[] = ['airport_departure', 'airport_arrival', 'avion', 'class', 'price', 'actions'];
   selectedClass: number = 0;
   selectedSchedule: number = 0;
   
@@ -46,7 +46,7 @@ export class FlightReservationsComponent implements OnInit {
         this.paises = data;
       },
       err => {
-        this.openCustomPopUp('Hubo un error obteniendo los paises, contacte a los administradores.');
+        this.openCustomPopUp('Hubo un error obteniendo los paises, contacte a los administradores.', '/home');
       }
     )
 
@@ -63,7 +63,7 @@ export class FlightReservationsComponent implements OnInit {
         this.horarios = data;
       },
       err => {
-        this.openCustomPopUp('Hubo un error obteniendo los horarios, contacte a los administradores.');
+        this.openCustomPopUp('Hubo un error obteniendo los horarios, contacte a los administradores.', '/home');
       }
     )
 
@@ -72,7 +72,7 @@ export class FlightReservationsComponent implements OnInit {
         this.tarifas = data;
       },
       err => {
-        this.openCustomPopUp('Hubo un error obteniendo las tarifas, contacte a los administradores.');
+        this.openCustomPopUp('Hubo un error obteniendo las tarifas, contacte a los administradores.', '/home');
       }
     )
     
@@ -85,13 +85,6 @@ export class FlightReservationsComponent implements OnInit {
       startWith(''),
       map(value => this._secondFilter(value || '')),
     );
-  }
-
-  printValues() {
-    console.log(this.paisLlegada.getRawValue());
-    console.log(this.paisPartida.getRawValue());
-    console.log(this.selectedSchedule);
-    console.log(this.selectedClass);
   }
 
   private _filter(value: string): Countries[] {
@@ -112,15 +105,16 @@ export class FlightReservationsComponent implements OnInit {
         this.paisesFiltered = data;
       },
       err => {
-        this.openCustomPopUp('Hubo un error obteniendo los paises, contacte a los administradores.');
+        this.openCustomPopUp('Hubo un error obteniendo los paises, contacte a los administradores.', '/home');
       }
     )
   }
 
-  public openCustomPopUp(message: string) {
+  public openCustomPopUp(message: string, link: string | undefined = undefined) {
     this.customPopUpService.confirm(
       'Reservaciones', 
-      message
+      message,
+      link
       );
   }
 }

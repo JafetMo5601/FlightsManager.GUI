@@ -1,0 +1,57 @@
+<div class="container w-100 h-100 d-flex align-items-center justify-content-center" style="max-height: 100%">
+    <div class="w-100 d-flex justify-content-center">
+        <div class="col-8">
+            <div class="h-100 p-5 bg-light rounded-3">
+                <h2 class="text-dark">Detalles del vuelo</h2>
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h3 class="text-black-50">{{reservation_object?.aeropuertoPartida?.pais?.nombre}} - {{reservation_object?.aeropuertoDestino?.pais?.nombre}}</h3>
+                        <p class="text-dark">{{reservation_object?.horario?.horaPartida | date:"fullDate"}} - {{reservation_object?.horario?.horaLlegada | date:"fullDate"}}</p>
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-md-12">
+                        <div class="h-100 p-5 text-bg-dark rounded-3">
+                            <h3 class="w-100 text-center">Rerefencia de la aerolinea</h3>
+                            <div class="row g-0 mt-5">
+                                <div class="card-body">
+                                    <p class="fw-light text-light">{{reservation_object?.aeropuertoPartida?.pais?.nombre}} - {{reservation_object?.aeropuertoDestino?.pais?.nombre}} ({{ reservation_object?.avion?.aerolinea?.nombre }})</p>
+                                    <p class="fw-light text-light">{{reservation_object?.aeropuertoDestino?.pais?.nombre}} - {{reservation_object?.aeropuertoPartida?.pais?.nombre}} ({{ reservation_object?.avion?.aerolinea?.nombre }})</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="text-black-50">Detalles del boleto: </h3>
+                                <br>
+                                <p class="text-dark">Clase de la reservacion: {{ reservation_object?.tarifa?.clase }}</p>
+                                <p class="text-dark">Numeracion del asiento: {{ reservation_object?.tarifa?.asiento?.letra }}{{ reservation_object?.tarifa?.asiento?.fila }}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h3 class="text-black-50">Precio total facturado: </h3>
+                                <br><br>    
+                                <p class="text-dark">{{ reservation_object?.tarifa?.precio | currency }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-5 d-grid gap-2 d-sm-flex justify-content-end">
+                    <button type="button" id="cancel" class="btn btn-lg px-4 gap-3" (click)="cancelPopUp()">Cancelar</button>
+                    <button type="button" class="btn btn-secondary btn-lg px-4 gap-3" (click)="confirmPopUp()">Reservar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

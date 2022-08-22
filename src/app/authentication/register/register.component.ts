@@ -77,10 +77,11 @@ export class RegisterComponent implements OnInit {
     )
   }
 
-  public openCustomPopUp(message: string) {
+  public openCustomPopUp(message: string, link: string | undefined = undefined) {
     this.customPopUpService.confirm(
       'Nuevo usuario', 
-      message
+      message,
+      link
       );
   }
 
@@ -103,15 +104,34 @@ export class RegisterComponent implements OnInit {
       this.signUpForm.controls['birthDate'].value!.toISOString(),
       this.signUpForm.controls['country'].value!).subscribe(
       data => {
-        console.log(data)
-        this.isSuccessful = true;
-        this.isSignUpFailed = false;
-        this.openCustomPopUp(data.message);
+        if (data.status === 'Success'){
+          this.isSuccessful = true;
+          this.isSignUpFailed = false;
+          this.openCustomPopUp(data.message, 'auth');
+          // window.location.reload();
+        } else {
+          this.errorMessage = data.error.message;
+          this.openCustomPopUp('Hubo un error creando el usuario, contacte a los administradores.');
+        }
       },
       err => {
-        console.log(err)
-        this.errorMessage = err.error.message;
-        this.isSignUpFailed = true;
+        if (err.status === 500){
+          this.isSuccessful = false;
+          this.isSignUpFailed = true;
+          if (err.error.message !== undefined || err.error.message !== null) {
+            this.openCustomPopUp(err.error.message);
+          } else {
+            this.openCustomPopUp('Hubo un error creando el usuario, contacte a los administradores.');
+          }
+        } else if (err.status === 'Success'){
+          this.isSuccessful = true;
+          this.isSignUpFailed = false;
+          this.openCustomPopUp(err.message);
+        } else {
+          this.isSuccessful = false;
+          this.isSignUpFailed = true;
+          this.openCustomPopUp('Hubo un error creando el usuario, contacte a los administradores.');
+        }
       }
     );
   }

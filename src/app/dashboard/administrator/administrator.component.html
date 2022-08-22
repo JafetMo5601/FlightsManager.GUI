@@ -1,20 +1,20 @@
 <div class="container w-100 h-100 d-flex align-items-center justify-content-center" style="max-height: 100%">
     <div class="w-100">
         <div class="d-flex justify-content-center title">
-            <h2 class="text-dark">Crear una reservacion</h2>
+            <h2 class="text-dark">Crear un vuelo</h2>
         </div>
         <div class="row align-items-center justify-content-center">
             <div class="col-md-10">
                 <div class="h-100 p-5 text-bg-dark rounded-3">
                     <div class="input-group m-0 row align-items-center">
-                        <div class="col-5">
+                        <div class="col-12">
                             <div class="row align-items-center">
                                 <form class="form-control m-0 bg-white">
                                     <mat-form-field class="w-100" appearance="outline">
                                         <mat-label>Escoja el destino de partida</mat-label>
                                         <mat-icon class="me-3" matPrefix>flight_takeoff</mat-icon>
-                                        <input type="text" placeholder="Seleccione el pais de salida"
-                                            aria-label="Number" matInput [formControl]="paisPartida"
+                                        <input type="text" placeholder="Seleccione el aeropuerto de salida"
+                                            aria-label="Number" matInput [formControl]="departureAirport"
                                             [matAutocomplete]="auto1">
                                         <mat-autocomplete #auto1="matAutocomplete">
                                             <mat-option *ngFor="let option of filteredOptions | async"
@@ -26,20 +26,14 @@
                                 </form>
                             </div>
                         </div>
-                        <div class="col-2">
-                            <div class="row w-100 m-0">
-                                <mat-icon class="d-flex align-items-center justify-content-center w-100"
-                                    id="comparaison-icon">compare_arrows</mat-icon>
-                            </div>
-                        </div>
-                        <div class="col-5">
+                        <div class="col-12 mt-3">
                             <div class="row align-items-center">
                                 <form class="form-control m-0 bg-white">
                                     <mat-form-field class="w-100" appearance="outline">
                                         <mat-label>Escoja el destino de llegada</mat-label>
                                         <mat-icon class="me-3" matPrefix>flight_land</mat-icon>
-                                        <input type="text" placeholder="Seleccione el pais de llegada"
-                                            aria-label="Number" matInput [formControl]="paisLlegada"
+                                        <input type="text" placeholder="Seleccione el aeropuerto de llegada"
+                                            aria-label="Number" matInput [formControl]="arrivalAirport"
                                             [matAutocomplete]="auto2">
                                         <mat-autocomplete #auto2="matAutocomplete">
                                             <mat-option *ngFor="let option of filteredAgainOptions | async"
@@ -93,56 +87,26 @@
                         </div>
                     </div>
 
-                    <div class="row justify-content-center px-3">
-                        <button class="btn btn-outline-light mt-3" type="button">Buscar vuelos</button>
+                    <div class="input-group p-0 m-0 mt-3 row justify-content-between align-items-center">
+                        <div class="col-12">
+                            <div class="row align-items-center">
+                                <form class="form-control m-0 bg-white">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-icon class="me-3" matPrefix>airplanemode_active</mat-icon>
+                                        <mat-label>Escoja el avion</mat-label>
+                                        <mat-select [(ngModel)]="selectedPlane" name="plane">
+                                            <mat-option *ngFor="let plane of planes" [value]="plane.id" (click)="extractIds()">
+                                                {{plane.fabricante}} {{plane.tipo}} ({{ plane.aerolinea.nombre }})
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </form>
+                            </div>
+                        </div>
                     </div>
-
-                    <div class="input-group p-0 m-0 mt-3 row justify-content-center align-items-center">
-                        <section class="example-container mat-elevation-z8 m-0 p-0" tabindex="0">
-                            <table mat-table [dataSource]="dataSource" class="w-100">
-
-                                <!-- Position Column -->
-                                <ng-container matColumnDef="airport_departure">
-                                    <th mat-header-cell *matHeaderCellDef> Arrivo </th>
-                                    <td mat-cell *matCellDef="let element"> {{element.aeropuertoPartida.nombre}} </td>
-                                </ng-container>
-
-                                <!-- Name Column -->
-                                <ng-container matColumnDef="airport_arrival">
-                                    <th mat-header-cell *matHeaderCellDef> Llegada </th>
-                                    <td mat-cell *matCellDef="let element"> {{element.aeropuertoDestino.nombre}} </td>
-                                </ng-container>
-
-                                <!-- Weight Column -->
-                                <ng-container matColumnDef="avion">
-                                    <th mat-header-cell *matHeaderCellDef> Avion </th>
-                                    <td mat-cell *matCellDef="let element"> {{element.avion.fabricante}}
-                                        {{element.avion.tipo}} </td>
-                                </ng-container>
-
-                                <!-- Symbol Column -->
-                                <ng-container matColumnDef="class">
-                                    <th mat-header-cell *matHeaderCellDef> Clase del asiento </th>
-                                    <td mat-cell *matCellDef="let element"> {{element.tarifa.clase}} </td>
-                                </ng-container>
-
-
-                                <ng-container matColumnDef="price">
-                                    <th mat-header-cell *matHeaderCellDef> Precio </th>
-                                    <td mat-cell *matCellDef="let element"> {{element.tarifa.precio}} </td>
-                                </ng-container>
-
-                                <ng-container matColumnDef="actions">
-                                    <th mat-header-cell *matHeaderCellDef></th>
-                                    <td mat-cell *matCellDef="let element" routerLink="/home/booking/{{element.id}}">
-                                        <mat-icon>open_in_new</mat-icon>
-                                    </td>
-                                </ng-container>
-
-                                <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-                                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                            </table>
-                        </section>
+                    <div class="mt-5 d-grid gap-2 d-sm-flex justify-content-end">
+                        <button type="button" id="cancel" class="btn btn-lg px-4 gap-3" (click)="cancelPopUp()">Cancelar</button>
+                        <button type="button" class="btn btn-secondary btn-lg px-4 gap-3" (click)="confirmPopUp()">Reservar</button>
                     </div>
                 </div>
             </div>
